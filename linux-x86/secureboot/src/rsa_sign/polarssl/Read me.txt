@@ -1,0 +1,20 @@
+How to compile:
+#cd polarssl
+#make
+
+Output:
+polarssl/programs/pkey/rsa_genKey
+polarssl/programs/pkey/rsa_sign
+polarssl/programs/pkey/rsa_verify
+
+
+Usage:
+@Gen rsa publick&priv key
+#./rsa_genkey
+
+@Gen signature
+./rsa_sign [fileName] [Private Key]
+
+@verify
+./rsa_verify [fileName] [public Key]
+

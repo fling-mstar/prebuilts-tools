@@ -1,0 +1,140 @@
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include "prng.h"
+
+int main(int argc, char *argv[]){
+	
+	unsigned char pu8Input[16]={0,1,2,3,4,5,6,7,8,9};
+	unsigned char* u8pOutput=NULL;
+	u8pOutput =(unsigned char*) malloc(sizeof(unsigned char)*0x20);
+        memset(u8pOutput,0x20,0);
+	//memcpy(pu8)
+	printf(">>>>stupid\n");
+	//cc_prng(u8pOutput, 0x20 );
+	printf("%d \n",__LINE__);        
+	unsigned int k=0;
+
+	#if 1
+	cc_prng_didin(pu8Input,0x10,u8pOutput,0x50 );
+
+        for(k=0;k<0x20;k++)
+        {
+            printf("u8pOutput=%08lx\n",*(u8pOutput+k));
+        }
+	#endif
+		cc_prng(u8pOutput,0x50 );
+		printf("\n\n\n\n\n\n");
+        for(k=0;k<0x20;k++)
+        {
+            printf("u8pOutput=%08lx\n",*(u8pOutput+k));
+        }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+#if 0	
+	unsigned char* u8pOutput = NULL;
+	unsigned int filesize = 0;
+	unsigned char* ch1 = NULL;
+	const char pFileName1[]="test1.dat";        
+	const char pFileName2[]="test2.dat";        
+	const char pFileName3[]="test3.dat";        
+	const char pFileName4[]="test4.dat"; 
+	unsigned char* ch2=NULL;
+	unsigned char* ch3=NULL;
+	int i = 0;
+	FILE *fin;
+	FILE *fout1;
+	FILE *fout2;
+	FILE *fout3;
+	FILE *fout4;
+	//u8pOutput=(unsigned char*)malloc(sizeof(unsigned char)*1024); 
+	ch1=(unsigned char*)malloc(sizeof(unsigned char)*1024);
+	ch2=(unsigned char*)malloc(sizeof(unsigned char)*1024);
+	ch3=(unsigned char*)malloc(sizeof(unsigned char)*1024);
+	fin=fopen(argv[1],"rb+");
+	fout1=fopen(pFileName1,"w+");
+	fout2=fopen(pFileName2,"w+");
+	fout3=fopen(pFileName3,"w+");
+	fout4=fopen(pFileName4,"w+");
+	if(fin == NULL)
+	{
+		return 0;
+	}
+	printf("stupid\n");
+
+#if 1
+{
+	//fread(u8pOutput,sizeof(unsigned char),80,fin);
+	//printf("%s \n",u8pOutput);
+}
+#endif
+fseek(fin,0,SEEK_END);
+filesize=ftell(fin);
+fseek(fin,0,SEEK_SET);
+//filesize=strlen(u8pOutput);
+//printf("filesize= %d\n",filesize);
+
+for(i=0 ;i<filesize;i++)
+{	
+	*(ch1+i)=getc(fin);
+	printf("%c",*(ch1+i));
+	if(*(ch1+i) == '\n')
+	{
+		break;
+	}
+}
+printf("i=%d\n",i);
+fwrite(ch1,sizeof(char),i,fout1);
+
+printf("1 %s\n", ch1);
+
+
+
+for(i=0 ;i<filesize;i++)
+{	
+	*(ch2+i)=getc(fin);
+	printf("%c",*(ch2+i));
+	if(*(ch2+i) == '\n')
+	{
+		break;
+	}
+}
+fwrite(ch2,sizeof(unsigned char),i,fout2);
+printf("i=%d\n",i);
+printf("2 %s\n", ch2);
+
+
+
+for(i=0 ;i<filesize;i++)
+{	
+	*(ch3+i)=getc(fin);
+	if((char)(*(ch3+i)) == EOF)
+	{
+		printf("\n");
+		printf("break\n");
+		break;
+	}
+	printf("%c",*(ch3+i));
+}
+fwrite(ch3,sizeof(unsigned char),i,fout3);
+
+fwrite(ch1,sizeof(unsigned char),9,fout4);
+putc('\n',fout4);
+fwrite(ch2,sizeof(unsigned char),24,fout4);
+putc('\n',fout4);
+fwrite(ch3,sizeof(unsigned char),44,fout4);
+
+ //cc_prng(*u8pOutput, 0x20 );
+
+#endif
+return 0;
+}
